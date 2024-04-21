@@ -37,5 +37,11 @@ typedef struct Input
 	int jump_;
 
 };
+namespace SDLCommonFunc
+{
+	SDL_Surface* LoadImage(std::string file_path);
+	void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y);
+	void CleanUp();
+}
 
 #endif

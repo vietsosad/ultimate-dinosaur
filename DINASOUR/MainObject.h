@@ -1,10 +1,10 @@
 #pragma once
 #ifndef MAIN_OBJECT_H
-#define MAIN_OBJeCT_H
+#define MAIN_OBJECT_H
 
 #include "CommonFunc.h"
 #include "BaseObject.h"
-
+#define PLAYER_JUMP 20
 class MainObject : public BaseObject
 {
 private:
@@ -21,6 +21,7 @@ private:
     Input input_type_;
     int frame_;
     int status_;
+
 public:
     MainObject();
     ~MainObject();
@@ -32,6 +33,7 @@ public:
     };
     bool LoadImg(std::string path, SDL_Renderer* screen);
     void Show(SDL_Renderer* des);
+
     void HandleInputAction(SDL_Event events, SDL_Renderer* screen);
     void Handlemove();
     void set_clip();

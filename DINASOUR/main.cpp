@@ -2,7 +2,7 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 #include "MainObject.h"
-
+#include "ThreatsObject.h"
 BaseObject g_background;
 BaseObject g_character;
 BaseObject g_font;
@@ -72,10 +72,15 @@ int main(int argc, char* argv[])
 
     if (LoadBackground() == false)
         return -1;
+    //Make MainObject
     MainObject p_player;
     p_player.LoadImg("imgs/character/dinasour_r.png", g_screen);
     p_player.set_clip();
     
+    //Make ThreatsObject
+ 
+    
+   
 
     bool is_quit = false;
     while (!is_quit)
@@ -100,8 +105,11 @@ int main(int argc, char* argv[])
         g_background.Render(g_screen, NULL);
         p_player.Show(g_screen);
         p_player.Handlemove();
+       
         SDL_RenderPresent(g_screen);
         SDL_Delay(60);
+        //Run Threat
+        
     }
     close();
     return 0;

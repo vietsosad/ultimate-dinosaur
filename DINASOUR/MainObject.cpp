@@ -13,8 +13,9 @@ MainObject::MainObject()
     status_ = -1;
     input_type_.left_ = 0;
     input_type_.right_ = 0;
+   
     input_type_.down_ = 0;
-    input_type_.down_ = 0;
+    status_ = WALK_RIGHT;
 
 }
 
@@ -60,7 +61,7 @@ void MainObject::Show(SDL_Renderer* des)
     else {
         LoadImg("imgs/character/dinasour_r.png", des);
     }
-    if (input_type_.left_ == 1 || input_type_.right_ == 1)
+    if (1)
     {
         frame_++;
     }
@@ -80,9 +81,11 @@ void MainObject::Show(SDL_Renderer* des)
 
     SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
 }
+
 void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
 {
-   
+    /*input_type_.jump_--;
+    if(input_type_.jump_ == 0) y_pos_ = 410.5;*/
     if (events.type == SDL_KEYDOWN)
     {
         switch (events.key.keysym.sym)
@@ -108,35 +111,24 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
         break;
         case SDLK_SPACE:
         {
-            status_ = JUMP;
-            y_pos_ -= height_frame_;
-           
-
+            input_type_.jump_ = 100;
+            if (input_type_.jump_ > 0) 
+            {
+                y_pos_ += -18.5;
+                --input_type_.jump_;
+            }
         }
         break;
         default :
             break;
         }
-        if (events.type == SDL_KEYUP)
-        {
-            switch (events.key.keysym.sym)
-            {
-            case SDLK_SPACE:
-            {
-                status_ = JUMP;
-                y_pos_ += height_frame_;
-
-
-            }
-            break;
-            default:
-                break;
-            }
-        }
     }
- 
+   
+    std::cout << y_pos_ << "\n";
 }
 void MainObject::Handlemove() {
+    if(y_pos_ < 410.5) y_pos_ += 8;
+    rect_.y = 410.5;
     rect_.x += x_pos_;
     if (rect_.x < 0||rect_.x+ width_frame_>SCREEN_WIDTH) {
         rect_.x -= x_pos_;

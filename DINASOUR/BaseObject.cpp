@@ -7,6 +7,7 @@ BaseObject::BaseObject()
 	rect_.w = 0;
 	rect_.h = 0;
 }
+
 BaseObject::~BaseObject()
 {
 	Free();
@@ -46,3 +47,5 @@ void BaseObject::Free()
 		rect_.h = 0;
 	}
 }
+
+

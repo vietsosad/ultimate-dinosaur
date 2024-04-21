@@ -8,11 +8,14 @@ class BaseObject
 public:
 	BaseObject();
 	~BaseObject();
+	void Shw(SDL_Surface* des);
+
 	void SetRect(const int& x, const int& y) { rect_.x = x, rect_.y = y; }
 	SDL_Rect Getrect() const { return rect_; }
 	SDL_Texture* GetObject() const { return p_object_; }
 	virtual bool LoadImg(std::string path, SDL_Renderer* screen);
 	void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL);
+	void Handlemove(const int x_bordr, const int y_bordr);
 	void Free();
 protected:
 	SDL_Texture* p_object_ = NULL;
