@@ -4,16 +4,12 @@
 #include "MainObject.h"
 #include "ThreatsObject.h"
 BaseObject g_background;
-BaseObject g_character;
-BaseObject g_font;
-BaseObject g_grass;
 bool InitData()
 {
     bool success = true;
     int ret = SDL_Init(SDL_INIT_VIDEO);
     if (ret < 0)
         return false;
-
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
     g_window = SDL_CreateWindow("ULTIMATE_DINASOUR",
@@ -21,7 +17,6 @@ bool InitData()
         SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT,
         SDL_WINDOW_SHOWN);
-
     if (g_window == NULL)
     {
         success = false;
@@ -53,17 +48,73 @@ bool LoadBackground() {
 void close()
 {
     g_background.Free();
-
     SDL_DestroyRenderer(g_screen);
     g_screen = NULL;
-
     SDL_DestroyWindow(g_window);
     g_window = NULL;
-
     IMG_Quit();
     SDL_QUIT;
 }
+std::vector<ThreatsObject*> MakeThreatList()
+{
+    std::vector<ThreatsObject*> list_threats;
+    ThreatsObject* threats_objs = new ThreatsObject[5];
+    for (int i = 0; i < 5; i++)
+    {
+        ThreatsObject* p_threat = (threats_objs + i);
+        ThreatsObject* p_threat_1 = (threats_objs + i);
+        if (p_threat != NULL)
+        {
+            p_threat->LoadImg("imgs/enemy/bat.png", g_screen);
+            p_threat->set_clip();
+            p_threat->set_x_pos(890 + 275.5 * i);   
+            p_threat->set_y_pos(rand() % 410 - 45); 
+            list_threats.push_back(p_threat);
+        }
+    }
 
+    return list_threats;
+}
+std::vector<ThreatsObject*> MakeThreatList_1()
+{
+    std::vector<ThreatsObject*> list_threats_1;
+    ThreatsObject* threats_objs = new ThreatsObject[5];
+    for (int i = 0; i < 5; i++)
+    {
+        ThreatsObject* p_threat = (threats_objs + i);
+     
+        if (p_threat != NULL)
+        {
+            p_threat->LoadImg("imgs/enemy/cactus.png", g_screen);
+            p_threat->set_clip();
+            p_threat->set_x_pos(890-100*i + rand() %  350);
+            p_threat->set_y_pos(410.5-rand()%5);
+            list_threats_1.push_back(p_threat);
+        }
+    }
+
+    return list_threats_1;
+}
+std::vector<ThreatsObject*> MakeThreatList_2()
+{
+    std::vector<ThreatsObject*> list_threats_2;
+    ThreatsObject* threats_objs = new ThreatsObject[2];
+    for (int i = 0; i < 2; i++)
+    {
+        ThreatsObject* p_threat = (threats_objs + i);
+
+        if (p_threat != NULL)
+        {
+            p_threat->LoadImg("imgs/enemy/rocket_.png", g_screen);
+            p_threat->set_clip();
+            p_threat->set_x_pos(rand()%890);
+            p_threat->set_y_pos(rand()%500+25);
+            list_threats_2.push_back(p_threat);
+        }
+    }
+
+    return list_threats_2;
+}
 int main(int argc, char* argv[])
 {
     SDL_Rect des{ 0,0, 890,500 };
@@ -79,9 +130,9 @@ int main(int argc, char* argv[])
     
     //Make ThreatsObject
  
-    
-   
-
+    std::vector<ThreatsObject*> threat_list = MakeThreatList();
+    std::vector<ThreatsObject*> threat_list_1 = MakeThreatList_1();
+    std::vector<ThreatsObject*> threat_list_2 = MakeThreatList_2();
     bool is_quit = false;
     while (!is_quit)
     {
@@ -105,7 +156,30 @@ int main(int argc, char* argv[])
         g_background.Render(g_screen, NULL);
         p_player.Show(g_screen);
         p_player.Handlemove();
-       
+        for (int i = 0; i < threat_list.size(); i++) {
+            ThreatsObject* p_threat = threat_list.at(i);
+            if (p_threat != NULL)
+            {
+                p_threat->moving();
+                p_threat->Show(g_screen);
+            }
+       }
+        for (int i = 0; i < threat_list_1.size(); i++) {
+            ThreatsObject* p_threat_1 = threat_list_1.at(i);
+            if (p_threat_1 != NULL)
+            {
+                p_threat_1->moving_1();
+                p_threat_1->Show(g_screen);
+            }
+        }
+        for (int i = 0; i < threat_list_2.size(); i++) {
+            ThreatsObject* p_threat_2 = threat_list_2.at(i);
+            if (p_threat_2 != NULL)
+            {
+                p_threat_2->moving_2();
+                p_threat_2->Show(g_screen);
+            }
+        }
         SDL_RenderPresent(g_screen);
         SDL_Delay(60);
         //Run Threat
