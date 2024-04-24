@@ -4,6 +4,7 @@
 #include<iostream>
 #include<Windows.h>
 #include<string>
+#include<vector>
 #include<SDL.h>
 #include<SDL_image.h>
 #include<SDL_mixer.h>
@@ -26,8 +27,7 @@ const int COLOR_KEY_G = 180;
 
 const int RENDER_DRAW_COLOR = 0Xff;
 #define TILE_SIZE_ 64
-#define MAX_MAP_X 400
-#define MAX_MAP_Y 10
+
 typedef struct Input
 {
 	int right_;
@@ -39,9 +39,7 @@ typedef struct Input
 };
 namespace SDLCommonFunc
 {
-	SDL_Surface* LoadImage(std::string file_path);
-	void ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int y);
-	void CleanUp();
+	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& other_object);
 }
 
 #endif

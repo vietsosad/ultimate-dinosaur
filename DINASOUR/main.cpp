@@ -54,6 +54,7 @@ void close()
     g_window = NULL;
     IMG_Quit();
     SDL_QUIT;
+    
 }
 std::vector<ThreatsObject*> MakeThreatList()
 {
@@ -156,12 +157,26 @@ int main(int argc, char* argv[])
         g_background.Render(g_screen, NULL);
         p_player.Show(g_screen);
         p_player.Handlemove();
+        SDL_Rect rect_player = p_player.GetRectFrame();
         for (int i = 0; i < threat_list.size(); i++) {
             ThreatsObject* p_threat = threat_list.at(i);
             if (p_threat != NULL)
             {
                 p_threat->moving();
                 p_threat->Show(g_screen);
+                SDL_Rect rect_threat = p_threat->GetRectFrame();
+                bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat);
+                if (bCol1)
+                {
+                    std::cout << "va cham threat\n";
+                    if (MessageBox(NULL, L"GAME OVER!!",L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                    {
+                        p_threat->Free();
+                        close();
+                        SDL_Quit;
+                        return 0;
+                    }
+                }
             }
        }
         for (int i = 0; i < threat_list_1.size(); i++) {
@@ -170,6 +185,20 @@ int main(int argc, char* argv[])
             {
                 p_threat_1->moving_1();
                 p_threat_1->Show(g_screen);
+                SDL_Rect rect_threat_1 = p_threat_1->GetRectFrame();
+                bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_1);
+                if (bCol1)
+                {
+                    std::cout << "va cham threat 1\n";
+                    if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                    {
+                        p_threat_1->Free();
+                        close();
+                        SDL_Quit;
+                        return 0;
+                    }
+                }
+
             }
         }
         for (int i = 0; i < threat_list_2.size(); i++) {
@@ -178,6 +207,19 @@ int main(int argc, char* argv[])
             {
                 p_threat_2->moving_2();
                 p_threat_2->Show(g_screen);
+                SDL_Rect rect_threat_2 = p_threat_2->GetRectFrame();
+                bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_2);
+                if (bCol1)
+                {
+                    std::cout << "va cham threat 2\n";
+                    if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                    {
+                        p_threat_2->Free();
+                        close();
+                        SDL_Quit;
+                        return 0;
+                    }
+                }
             }
         }
         SDL_RenderPresent(g_screen);
@@ -186,6 +228,15 @@ int main(int argc, char* argv[])
         
     }
     close();
+   /* for (auto p_threat : threat_list) {
+        delete p_threat;
+    }
+    for (auto p_threat_1 : threat_list_1) {
+        delete p_threat_1;
+    }
+    for (auto p_threat_2 : threat_list_2) {
+        delete p_threat_2;
+    }*/
     return 0;
 }
 
