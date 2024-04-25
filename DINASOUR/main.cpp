@@ -1,9 +1,12 @@
-
+﻿
 #include "CommonFunc.h"
 #include "BaseObject.h"
 #include "MainObject.h"
 #include "ThreatsObject.h"
+#include "TextObject.h"
 BaseObject g_background;
+TTF_Font* font_scores=NULL;
+
 bool InitData()
 {
     bool success = true;
@@ -33,9 +36,19 @@ bool InitData()
             if (!(IMG_Init(imgFlags) & imgFlags))
                 success = false;
         }
+        if (TTF_Init() == -1)
+        {
+            success = false;
+        }
+        font_scores = TTF_OpenFont("font/pixel_font_.ttf",20);
+        if (font_scores == NULL)
+        {
+            success = false;
+        }
     }
     return success;
 }
+
 bool LoadBackground() {
     bool ret = g_background.LoadImg("imgs/background/map.png", g_screen);
   
@@ -45,6 +58,7 @@ bool LoadBackground() {
     }
     return true;
 }
+
 void close()
 {
     g_background.Free();
@@ -56,6 +70,7 @@ void close()
     SDL_QUIT;
     
 }
+
 std::vector<ThreatsObject*> MakeThreatList()
 {
     std::vector<ThreatsObject*> list_threats;
@@ -76,6 +91,7 @@ std::vector<ThreatsObject*> MakeThreatList()
 
     return list_threats;
 }
+
 std::vector<ThreatsObject*> MakeThreatList_1()
 {
     std::vector<ThreatsObject*> list_threats_1;
@@ -96,6 +112,7 @@ std::vector<ThreatsObject*> MakeThreatList_1()
 
     return list_threats_1;
 }
+
 std::vector<ThreatsObject*> MakeThreatList_2()
 {
     std::vector<ThreatsObject*> list_threats_2;
@@ -116,14 +133,17 @@ std::vector<ThreatsObject*> MakeThreatList_2()
 
     return list_threats_2;
 }
+
 int main(int argc, char* argv[])
 {
     SDL_Rect des{ 0,0, 890,500 };
+
     if (InitData() == false)
         return -1;
 
     if (LoadBackground() == false)
         return -1;
+
     //Make MainObject
     MainObject p_player;
     p_player.LoadImg("imgs/character/dinasour_r.png", g_screen);
@@ -134,6 +154,11 @@ int main(int argc, char* argv[])
     std::vector<ThreatsObject*> threat_list = MakeThreatList();
     std::vector<ThreatsObject*> threat_list_1 = MakeThreatList_1();
     std::vector<ThreatsObject*> threat_list_2 = MakeThreatList_2();
+
+    //Time text
+    TextObject time_scores;
+    time_scores.SetColor(TextObject::WHITE_TEXT);
+
     bool is_quit = false;
     while (!is_quit)
     {
@@ -158,6 +183,7 @@ int main(int argc, char* argv[])
         p_player.Show(g_screen);
         p_player.Handlemove();
         SDL_Rect rect_player = p_player.GetRectFrame();
+// khởi tạo con rơi
         for (int i = 0; i < threat_list.size(); i++) {
             ThreatsObject* p_threat = threat_list.at(i);
             if (p_threat != NULL)
@@ -168,7 +194,7 @@ int main(int argc, char* argv[])
                 bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat);
                 if (bCol1)
                 {
-                    std::cout << "va cham threat\n";
+                    
                     if (MessageBox(NULL, L"GAME OVER!!",L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                     {
                         p_threat->Free();
@@ -179,6 +205,7 @@ int main(int argc, char* argv[])
                 }
             }
        }
+// khởi tạo xương rồng
         for (int i = 0; i < threat_list_1.size(); i++) {
             ThreatsObject* p_threat_1 = threat_list_1.at(i);
             if (p_threat_1 != NULL)
@@ -189,7 +216,7 @@ int main(int argc, char* argv[])
                 bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_1);
                 if (bCol1)
                 {
-                    std::cout << "va cham threat 1\n";
+                   
                     if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                     {
                         p_threat_1->Free();
@@ -201,6 +228,7 @@ int main(int argc, char* argv[])
 
             }
         }
+// khởi tạo tên lửa
         for (int i = 0; i < threat_list_2.size(); i++) {
             ThreatsObject* p_threat_2 = threat_list_2.at(i);
             if (p_threat_2 != NULL)
@@ -211,7 +239,7 @@ int main(int argc, char* argv[])
                 bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_2);
                 if (bCol1)
                 {
-                    std::cout << "va cham threat 2\n";
+                   
                     if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                     {
                         p_threat_2->Free();
@@ -222,6 +250,15 @@ int main(int argc, char* argv[])
                 }
             }
         }
+// show game scores
+        std::string str_scores = "Scores: ";
+        Uint32 scores = SDL_GetTicks() / 100;
+        Uint32 val_scores = scores++;
+        std::string str_val = std::to_string(val_scores);
+        str_scores += str_val;
+        time_scores.SetText(str_scores);
+        time_scores.LoadFromRenderText(font_scores, g_screen);
+        time_scores.RenderText(g_screen, SCREEN_WIDTH - 120, 15);
         SDL_RenderPresent(g_screen);
         SDL_Delay(60);
         //Run Threat
