@@ -1,5 +1,6 @@
-- Tạo map
+
 - Tạo animation, xác định tọa độ
 - Di chuyển, nhảy
 - Xử lí va chạm
+- Tạo hiệu ứng âm thanh cho game
 - Tạo thanh menu cho game, xử lí âm thanh, chữ
