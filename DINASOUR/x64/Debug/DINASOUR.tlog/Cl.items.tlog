@@ -1,5 +1,9 @@
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\BaseObject.cpp;C:\Users\Admin\UTL_DINASOUR\DINASOUR\x64\Debug\BaseObject.obj
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\CommonFunc.cpp;C:\Users\Admin\UTL_DINASOUR\DINASOUR\x64\Debug\CommonFunc.obj
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\main.cpp;C:\Users\Admin\UTL_DINASOUR\DINASOUR\x64\Debug\main.obj
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp;C:\Users\Admin\UTL_DINASOUR\DINASOUR\x64\Debug\MainObject.obj
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\ThreatsObject.cpp;C:\Users\Admin\UTL_DINASOUR\DINASOUR\x64\Debug\ThreatsObject.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\BaseObject.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\BaseObject.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\Button.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\Button.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\CommonFunc.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\CommonFunc.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\LTexture.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\LTexture.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\main.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\main.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\MainObject.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\MainObject.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\Menu.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\Menu.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\TextObject.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\TextObject.obj
+C:\Users\Admin\UT_DINASOUR\DINASOUR\ThreatsObject.cpp;C:\Users\Admin\UT_DINASOUR\DINASOUR\x64\Debug\ThreatsObject.obj

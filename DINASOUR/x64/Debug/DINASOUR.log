@@ -1,22 +1,2 @@
-﻿  BaseObject.cpp
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\CommonFunc.h(39,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-  (compiling source file 'BaseObject.cpp')
-  
-  CommonFunc.cpp
-  main.cpp
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\CommonFunc.h(39,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-  (compiling source file 'main.cpp')
-  
-  MainObject.cpp
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\CommonFunc.h(39,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-  (compiling source file 'MainObject.cpp')
-  
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp(76,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp(77,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp(131,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp(132,16): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp(134,20): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Admin\UTL_DINASOUR\DINASOUR\MainObject.cpp(136,16): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-  ThreatsObject.cpp
-  Generating Code...
-  DINASOUR.vcxproj -> C:\Users\Admin\UTL_DINASOUR\x64\Debug\DINASOUR.exe
+﻿  LINK : C:\Users\Admin\UT_DINASOUR\x64\Debug\DINASOUR.exe not found or not built by the last incremental link; performing full link
+  DINASOUR.vcxproj -> C:\Users\Admin\UT_DINASOUR\x64\Debug\DINASOUR.exe
