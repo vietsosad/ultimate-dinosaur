@@ -2,7 +2,10 @@
 - Bài tập lớn môn học Lập trình nâng cao sử dụng ngôn ngữ C++ và thư viện SDL2
 - Video giới thiệu game:<https://www.youtube.com/watch?v=RiUNwMcwlOA> <https://www.youtube.com/watch?v=9kUNWRCB--E> <https://www.youtube.com/watch?v=__-uUjxY1FE>
 # Giới thiệu game
-- Trong UltimateDinasour, bạn sẽ điều khiển nhân vật khung long tránh chướng ngại vật để giành được điểm số cao nhất có thế 
+- Trong UltimateDinasour, bạn sẽ điều khiển nhân vật khung long tránh chướng ngại vật để giành được điểm số cao nhất có thế
+#Cách tải game
++Cách 1: Vào link gitub trên và dowload các folder về máy, cài đặt visual code theo hướng dẫn <https://www.youtube.com/watch?v=UgJadfInqyo> và chơi
++Cách 2:
 ## 1.Cách chơi
 - Khi bắt đầu vào game, bạn sẽ thấy môt màn hình chờ ![menu](https://github.com/vietsosad/ultimate-dinosaur/blob/master/DINASOUR/Turtorial/Screenshot%202024-04-26%20230304.png)
 + Nút Play: bắt đầu game
