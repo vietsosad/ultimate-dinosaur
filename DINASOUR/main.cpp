@@ -259,6 +259,7 @@ int main(int argc, char* argv[])
                         Mix_PlayChannel(-1, g_sound_touching, 0);
                         if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                         {
+                            SDL_Delay(1000);
                             p_threat->Free();
                             close();
                             SDL_Quit;
@@ -282,6 +283,7 @@ int main(int argc, char* argv[])
                         Mix_PlayChannel(-1, g_sound_touching, 0);
                         if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                         {
+                            SDL_Delay(1000);
                             p_threat_1->Free();
                             close();
                             SDL_Quit;
@@ -306,6 +308,7 @@ int main(int argc, char* argv[])
                         Mix_PlayChannel(-1, g_sound_touching, 0);
                         if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                         {
+                            SDL_Delay(1000);
                             p_threat_2->Free();
                             close();
                             SDL_Quit;
