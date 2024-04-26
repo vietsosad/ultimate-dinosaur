@@ -54,9 +54,10 @@ bool InitData()
         return false;
     }
     g_sound_jump = Mix_LoadWAV("Sounds/Jump.wav");
-    g_sound_background = Mix_LoadWAV("Sounds/BackGround.wav");
+    g_sound_background = Mix_LoadWAV("Sounds/Sound_Game.wav");
     g_sound_touching = Mix_LoadWAV("Sounds/Lose.wav");
-    if (g_sound_jump == NULL || g_sound_background == NULL || g_sound_touching == NULL)
+    g_sound_click = Mix_LoadWAV("Sounds/Click_Mouse.wav");
+    if (g_sound_jump == NULL || g_sound_background == NULL || g_sound_touching == NULL||g_sound_click == NULL)
     {
         std::cout << "can not open music!!";
         return false;
@@ -185,6 +186,7 @@ int main(int argc, char* argv[])
     time_scores.SetColor(TextObject::WHITE_TEXT);
 
     Mix_PlayChannel(-1, g_sound_background, 0);
+
     bool is_quit = false;
     while (!is_quit)
     {
@@ -201,12 +203,17 @@ int main(int argc, char* argv[])
                     menu->handleEvent(g_event);
                     if (menu->enter->getPressed() == 2)
                     {
+                        Mix_PlayChannel(-1, g_sound_click, 0);
                         gameState = 1;
                     }
                     if (menu->quit->getPressed() == 2)
                     {
-                        is_quit = true;
+                        Mix_PlayChannel(-1, g_sound_click, 0);
+                        is_quit = false;
+                        SDL_Delay(1000);
+                        return 0;
                     }
+  
                 }
                 SDL_SetRenderDrawColor(g_screen, 0, 0, 0, RENDER_DRAW_COLOR);
                 SDL_RenderClear(g_screen);

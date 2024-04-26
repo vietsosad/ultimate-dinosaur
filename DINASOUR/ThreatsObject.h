@@ -26,6 +26,7 @@ public:
 	void Show(SDL_Renderer* des);
 	int get_width_frame() const { return width_frame_; }
 	int get_height_frame() const { return height_frame_; }
+	SDL_Rect GetRectFrame();
 	void moving(); 
 	void moving_1();
 	void moving_2();
@@ -47,3 +48,4 @@ private:
 
 };
 #endif
+// Le Hoang Viet

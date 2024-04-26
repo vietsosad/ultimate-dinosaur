@@ -17,7 +17,7 @@ public:
 
 	void free();
 	Button* enter;
-	Button* instruction;
+	/*Button* instruction;*/
 	Button* quit;
 
 private:

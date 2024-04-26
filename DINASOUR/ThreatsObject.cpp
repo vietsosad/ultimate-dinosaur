@@ -26,6 +26,19 @@ bool ThreatsObject::LoadImg(std::string path, SDL_Renderer* screen)
     return ret;
 }
 
+SDL_Rect ThreatsObject::GetRectFrame()
+{
+    SDL_Rect rect;
+   
+    rect.x = x_pos_;
+    rect.y = y_pos_;
+    rect.w = rect_.w / 12;
+    rect.h = height_frame_;
+
+    return rect;
+
+}
+
 void ThreatsObject::set_clip()
 {
     if (width_frame_ > 0 && height_frame_ > 0)
@@ -79,3 +92,4 @@ void ThreatsObject::moving_2()
     x_pos_ -= 25;
     if (x_pos_ < 0) { x_pos_ = 890 + rand() % 400 - 56, y_pos_ = rand() % 500 - 45; }
 }
+// Le Hoang Viet

@@ -33,7 +33,8 @@ const int CORLOR_KEY_B = 180;
 static Mix_Chunk* g_sound_jump;
 static Mix_Chunk* g_sound_background;
 static Mix_Chunk* g_sound_touching;
-
+static Mix_Chunk* g_sound_click;
+static Mix_Chunk* g_sound_menu;
 const int RENDER_DRAW_COLOR = 0Xff;
 #define TILE_SIZE_ 64
 
