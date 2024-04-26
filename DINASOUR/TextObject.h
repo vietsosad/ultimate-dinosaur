@@ -2,6 +2,7 @@
 #define TEXT_OBECJT_H_
 
 #include "CommonFunc.h"
+
 class TextObject
 {
 public:
@@ -18,6 +19,7 @@ public:
 	void Free();
 	void SetColor(Uint8 red, Uint8 green, Uint8 blue);
 	void SetColor(int type);
+
 	void RenderText(SDL_Renderer* screen,
 							int xp, int yp,
 								SDL_Rect* clip = NULL,
@@ -39,3 +41,4 @@ private:
 };
 
 #endif
+// Le Hoang Viet

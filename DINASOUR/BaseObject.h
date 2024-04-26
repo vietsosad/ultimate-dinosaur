@@ -8,8 +8,6 @@ class BaseObject
 public:
 	BaseObject();
 	~BaseObject();
-	void Shw(SDL_Surface* des);
-
 	void SetRect(const int& x, const int& y) { rect_.x = x, rect_.y = y; }
 	SDL_Rect Getrect() const { return rect_; }
 	SDL_Texture* GetObject() const { return p_object_; }
@@ -22,3 +20,4 @@ protected:
 	SDL_Rect rect_;
 };
 #endif
+//Le Hoang Viet

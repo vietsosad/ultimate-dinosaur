@@ -58,6 +58,7 @@ void TextObject::SetColor(int type)
 		text_color_ = color;
 	}
 }
+
 void TextObject:: RenderText(SDL_Renderer* screen,int xp, int yp,SDL_Rect* clip /*= NULL*/, double angle /*= 0*/, SDL_Point* center /*= NULL*/,	SDL_RendererFlip flip /*= SDL_FLIP_NONE*/)
 {
 	SDL_Rect renderquad = { xp,yp,width_,height_ };
@@ -69,3 +70,4 @@ void TextObject:: RenderText(SDL_Renderer* screen,int xp, int yp,SDL_Rect* clip 
 	}
 	SDL_RenderCopyEx(screen, texture_, clip, &renderquad, angle, center, flip);
 }
+// Le Hoang Viet

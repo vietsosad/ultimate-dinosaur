@@ -4,10 +4,8 @@
 MainObject::MainObject()
 {
     frame_ = 0;
-    x_pos_ = 10;
+    x_pos_ = 25;
     y_pos_ = 410.5;
-    x_val_ = 0;
-    y_val_ = 0;
     width_frame_ = 0;
     height_frame_ = 0;
     status_ = -1;
@@ -32,6 +30,18 @@ bool MainObject::LoadImg(std::string path, SDL_Renderer* screen)
     }
 
     return ret;
+}
+
+SDL_Rect MainObject::GetRectFrame()
+{
+    SDL_Rect rect;
+    rect.x = x_pos_;
+    rect.y = y_pos_;
+    rect.w = rect_.w / 10;
+    rect.h = height_frame_;
+
+    return rect;
+
 }
 
 void MainObject::set_clip()
@@ -82,10 +92,9 @@ void MainObject::Show(SDL_Renderer* des)
     SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
 }
 
-void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
+void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen,Mix_Chunk* g_jump_sound)
 {
-    /*input_type_.jump_--;
-    if(input_type_.jump_ == 0) y_pos_ = 410.5;*/
+ 
     if (events.type == SDL_KEYDOWN)
     {
         switch (events.key.keysym.sym)
@@ -111,10 +120,11 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
         break;
         case SDLK_SPACE:
         {
-            input_type_.jump_ = 100;
+            Mix_PlayChannel(-1, g_jump_sound, 0);
+            input_type_.jump_ = 110.5;
             if (input_type_.jump_ > 0) 
             {
-                y_pos_ += -18.5;
+                y_pos_ += -19.55;
                 --input_type_.jump_;
             }
         }
@@ -124,14 +134,26 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
         }
     }
    
-    std::cout << y_pos_ << "\n";
+    std::cout << y_pos_ << "    "<<x_pos_<< "\n";
 }
 void MainObject::Handlemove() {
     if(y_pos_ < 410.5) y_pos_ += 8;
     rect_.y = 410.5;
-    rect_.x += x_pos_;
-    if (rect_.x < 0||rect_.x+ width_frame_>SCREEN_WIDTH) {
-        rect_.x -= x_pos_;
+    rect_.x = x_pos_;
+    if (rect_.x < -67) {
+        rect_.x = 887 ;
+        x_pos_ = 887;
+    }
+    else if (rect_.x > 887)
+    {
+        rect_.x = -67;
+        x_pos_ = -67;
+    }
+
+    if (y_pos_ <= 0)
+    {
+        y_pos_ += 19,5;
     }
     rect_.y += y_pos_;
 }
+// Le Hoang Viet

@@ -8,9 +8,6 @@
 class MainObject : public BaseObject
 {
 private:
-    float x_val_;
-    float y_val_;
-
     float x_pos_;
     float y_pos_;
 
@@ -34,12 +31,13 @@ public:
     bool LoadImg(std::string path, SDL_Renderer* screen);
     void Show(SDL_Renderer* des);
 
-    void HandleInputAction(SDL_Event events, SDL_Renderer* screen);
+    void HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_Chunk* g_jump_sound);
     void Handlemove();
     void set_clip();
-
+    SDL_Rect GetRectFrame();
 };
 
 
 
 #endif
+// Le Hoang Viet

@@ -4,6 +4,9 @@
 #include "MainObject.h"
 #include "ThreatsObject.h"
 #include "TextObject.h"
+#include "Menu.h"
+#include "Button.h"
+
 BaseObject g_background;
 TTF_Font* font_scores=NULL;
 
@@ -46,6 +49,19 @@ bool InitData()
             success = false;
         }
     }
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
+        return false;
+    }
+    g_sound_jump = Mix_LoadWAV("Sounds/Jump.wav");
+    g_sound_background = Mix_LoadWAV("Sounds/BackGround.wav");
+    g_sound_touching = Mix_LoadWAV("Sounds/Lose.wav");
+    if (g_sound_jump == NULL || g_sound_background == NULL || g_sound_touching == NULL)
+    {
+        std::cout << "can not open music!!";
+        return false;
+    }
+    
     return success;
 }
 
@@ -83,7 +99,7 @@ std::vector<ThreatsObject*> MakeThreatList()
         {
             p_threat->LoadImg("imgs/enemy/bat.png", g_screen);
             p_threat->set_clip();
-            p_threat->set_x_pos(890 + 275.5 * i);   
+            p_threat->set_x_pos(rand() % 890 + 275.5 * i);
             p_threat->set_y_pos(rand() % 410 - 45); 
             list_threats.push_back(p_threat);
         }
@@ -126,7 +142,7 @@ std::vector<ThreatsObject*> MakeThreatList_2()
             p_threat->LoadImg("imgs/enemy/rocket_.png", g_screen);
             p_threat->set_clip();
             p_threat->set_x_pos(rand()%890);
-            p_threat->set_y_pos(rand()%500+25);
+            p_threat->set_y_pos(rand()%400+35);
             list_threats_2.push_back(p_threat);
         }
     }
@@ -148,6 +164,15 @@ int main(int argc, char* argv[])
     MainObject p_player;
     p_player.LoadImg("imgs/character/dinasour_r.png", g_screen);
     p_player.set_clip();
+
+    Menu* menu = new Menu;
+    if (menu->loadMenuTexture("imgs/background/menu.png", g_screen) == false)
+    {
+        std::cerr << "unable to load menu's background" << std::endl;
+    }
+
+    bool gameState = 0;
+
     
     //Make ThreatsObject
  
@@ -159,113 +184,146 @@ int main(int argc, char* argv[])
     TextObject time_scores;
     time_scores.SetColor(TextObject::WHITE_TEXT);
 
+    Mix_PlayChannel(-1, g_sound_background, 0);
     bool is_quit = false;
     while (!is_quit)
     {
-        while (SDL_PollEvent(&g_event) != 0)
+        if (gameState == 0)
         {
-            if (g_event.type == SDL_QUIT)
+            while (SDL_PollEvent(&g_event))
             {
-                is_quit = true;
-            }
-           
-            p_player.HandleInputAction(g_event, g_screen);
-           
-        }
-        des.x -= 10;
-        if (des.x <= 0) des.x = 890;
-        SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
-        SDL_RenderClear(g_screen);
-        g_background.SetRect(des.x - 890,des.y);
-        g_background.Render(g_screen, NULL);
-        g_background.SetRect(des.x, des.y);
-        g_background.Render(g_screen, NULL);
-        p_player.Show(g_screen);
-        p_player.Handlemove();
-        SDL_Rect rect_player = p_player.GetRectFrame();
-// khởi tạo con rơi
-        for (int i = 0; i < threat_list.size(); i++) {
-            ThreatsObject* p_threat = threat_list.at(i);
-            if (p_threat != NULL)
-            {
-                p_threat->moving();
-                p_threat->Show(g_screen);
-                SDL_Rect rect_threat = p_threat->GetRectFrame();
-                bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat);
-                if (bCol1)
+                if (g_event.type == SDL_QUIT)
                 {
-                    
-                    if (MessageBox(NULL, L"GAME OVER!!",L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                    is_quit = true;
+                }
+                else
+                {
+                    menu->handleEvent(g_event);
+                    if (menu->enter->getPressed() == 2)
                     {
-                        p_threat->Free();
-                        close();
-                        SDL_Quit;
-                        return 0;
+                        gameState = 1;
+                    }
+                    if (menu->quit->getPressed() == 2)
+                    {
+                        is_quit = true;
                     }
                 }
+                SDL_SetRenderDrawColor(g_screen, 0, 0, 0, RENDER_DRAW_COLOR);
+                SDL_RenderClear(g_screen);
+                menu->render(g_screen);
+                SDL_RenderPresent(g_screen);
             }
-       }
-// khởi tạo xương rồng
-        for (int i = 0; i < threat_list_1.size(); i++) {
-            ThreatsObject* p_threat_1 = threat_list_1.at(i);
-            if (p_threat_1 != NULL)
+        }
+        else
+        {
+            while (SDL_PollEvent(&g_event) != 0)
             {
-                p_threat_1->moving_1();
-                p_threat_1->Show(g_screen);
-                SDL_Rect rect_threat_1 = p_threat_1->GetRectFrame();
-                bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_1);
-                if (bCol1)
+                if (g_event.type == SDL_QUIT)
                 {
-                   
-                    if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
-                    {
-                        p_threat_1->Free();
-                        close();
-                        SDL_Quit;
-                        return 0;
-                    }
+                    is_quit = true;
                 }
 
+                p_player.HandleInputAction(g_event, g_screen, g_sound_jump);
+
             }
-        }
-// khởi tạo tên lửa
-        for (int i = 0; i < threat_list_2.size(); i++) {
-            ThreatsObject* p_threat_2 = threat_list_2.at(i);
-            if (p_threat_2 != NULL)
-            {
-                p_threat_2->moving_2();
-                p_threat_2->Show(g_screen);
-                SDL_Rect rect_threat_2 = p_threat_2->GetRectFrame();
-                bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_2);
-                if (bCol1)
+            des.x -= 10;
+            if (des.x <= 0) des.x = 890;
+            SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
+            SDL_RenderClear(g_screen);
+            g_background.SetRect(des.x - 890, des.y);
+            g_background.Render(g_screen, NULL);
+            g_background.SetRect(des.x, des.y);
+            g_background.Render(g_screen, NULL);
+            p_player.Show(g_screen);
+            p_player.Handlemove();
+            SDL_Rect rect_player = p_player.GetRectFrame();
+            // khởi tạo con rơi
+            for (int i = 0; i < threat_list.size(); i++) {
+                ThreatsObject* p_threat = threat_list.at(i);
+                if (p_threat != NULL)
                 {
-                   
-                    if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                    p_threat->moving();
+                    p_threat->Show(g_screen);
+                    SDL_Rect rect_threat = p_threat->GetRectFrame();
+                    bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat);
+                    if (bCol1)
                     {
-                        p_threat_2->Free();
-                        close();
-                        SDL_Quit;
-                        return 0;
+                        Mix_HaltMusic();
+                        Mix_PlayChannel(-1, g_sound_touching, 0);
+                        if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                        {
+                            p_threat->Free();
+                            close();
+                            SDL_Quit;
+                            return 0;
+                        }
                     }
                 }
             }
+            // khởi tạo xương rồng
+            for (int i = 0; i < threat_list_1.size(); i++) {
+                ThreatsObject* p_threat_1 = threat_list_1.at(i);
+                if (p_threat_1 != NULL)
+                {
+                    p_threat_1->moving_1();
+                    p_threat_1->Show(g_screen);
+                    SDL_Rect rect_threat_1 = p_threat_1->GetRectFrame();
+                    bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_1);
+                    if (bCol1)
+                    {
+                        Mix_HaltMusic();
+                        Mix_PlayChannel(-1, g_sound_touching, 0);
+                        if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                        {
+                            p_threat_1->Free();
+                            close();
+                            SDL_Quit;
+                            return 0;
+                        }
+                    }
+
+                }
+            }
+            // khởi tạo tên lửa
+            for (int i = 0; i < threat_list_2.size(); i++) {
+                ThreatsObject* p_threat_2 = threat_list_2.at(i);
+                if (p_threat_2 != NULL)
+                {
+                    p_threat_2->moving_2();
+                    p_threat_2->Show(g_screen);
+                    SDL_Rect rect_threat_2 = p_threat_2->GetRectFrame();
+                    bool bCol1 = SDLCommonFunc::CheckCollision(rect_player, rect_threat_2);
+                    if (bCol1)
+                    {
+                        Mix_HaltMusic();
+                        Mix_PlayChannel(-1, g_sound_touching, 0);
+                        if (MessageBox(NULL, L"GAME OVER!!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                        {
+                            p_threat_2->Free();
+                            close();
+                            SDL_Quit;
+                            return 0;
+                        }
+                    }
+                }
+            }
+            // show game scores
+            std::string str_scores = "Scores: ";
+            Uint32 scores = SDL_GetTicks() / 100;
+            Uint32 val_scores = scores++;
+            std::string str_val = std::to_string(val_scores);
+            str_scores += str_val;
+            time_scores.SetText(str_scores);
+            time_scores.LoadFromRenderText(font_scores, g_screen);
+            time_scores.RenderText(g_screen, SCREEN_WIDTH - 135, 20);
+            SDL_RenderPresent(g_screen);
+            SDL_Delay(60);
+            //Run Threat
+
         }
-// show game scores
-        std::string str_scores = "Scores: ";
-        Uint32 scores = SDL_GetTicks() / 100;
-        Uint32 val_scores = scores++;
-        std::string str_val = std::to_string(val_scores);
-        str_scores += str_val;
-        time_scores.SetText(str_scores);
-        time_scores.LoadFromRenderText(font_scores, g_screen);
-        time_scores.RenderText(g_screen, SCREEN_WIDTH - 120, 15);
-        SDL_RenderPresent(g_screen);
-        SDL_Delay(60);
-        //Run Threat
-        
     }
     close();
-   /* for (auto p_threat : threat_list) {
+    for (auto p_threat : threat_list) {
         delete p_threat;
     }
     for (auto p_threat_1 : threat_list_1) {
@@ -273,8 +331,9 @@ int main(int argc, char* argv[])
     }
     for (auto p_threat_2 : threat_list_2) {
         delete p_threat_2;
-    }*/
+    }
     return 0;
 }
 
+// Le Hoang Viet
 

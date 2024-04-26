@@ -12,7 +12,7 @@
 #include<iostream>
 #include<algorithm>
 #include<fstream>
-
+//#include "TextObject.h"
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
@@ -21,9 +21,18 @@ static SDL_Event g_event;
 const int SCREEN_WIDTH = 890;
 const int SCREEN_HEIGHT = 500;
 
+//const int COLOR_KEY_R = 167;
+//const int COLOR_KEY_B = 175;
+//const int COLOR_KEY_G = 180;
+
 const int COLOR_KEY_R = 167;
-const int COLOR_KEY_B = 175;
-const int COLOR_KEY_G = 180;
+const int COLOR_KEY_G = 175;
+const int CORLOR_KEY_B = 180;
+
+
+static Mix_Chunk* g_sound_jump;
+static Mix_Chunk* g_sound_background;
+static Mix_Chunk* g_sound_touching;
 
 const int RENDER_DRAW_COLOR = 0Xff;
 #define TILE_SIZE_ 64
@@ -39,7 +48,10 @@ typedef struct Input
 };
 namespace SDLCommonFunc
 {
+
 	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& other_object);
+	
 }
 
 #endif
+// Le Hoang Viet
