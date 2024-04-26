@@ -4,8 +4,8 @@
 # Giới thiệu game
 - Trong UltimateDinasour, bạn sẽ điều khiển nhân vật khung long tránh chướng ngại vật để giành được điểm số cao nhất có thế
 #Cách tải game
-+Cách 1: Vào link gitub trên và dowload các folder về máy, cài đặt visual code theo hướng dẫn <https://www.youtube.com/watch?v=UgJadfInqyo> và chơi
-+Cách 2:
+ Vào link gitub trên <https://github.com/vietsosad/ultimate-dinosaur> và dowload các folder về máy, cài đặt visual code theo hướng dẫn <https://www.youtube.com/watch?v=UgJadfInqyo> và chơi
+
 ## 1.Cách chơi
 - Khi bắt đầu vào game, bạn sẽ thấy môt màn hình chờ ![menu](https://github.com/vietsosad/ultimate-dinosaur/blob/master/DINASOUR/Turtorial/Screenshot%202024-04-26%20230304.png)
 + Nút Play: bắt đầu game
