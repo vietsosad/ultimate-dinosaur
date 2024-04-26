@@ -20,7 +20,7 @@
 ## Cách chơi
 - Bạn điều khiển nhân vật để nén các trở ngại ở trên, cố gắng dành điểm cao nhất có thể
 - Thất bại: Khi bạn va chạm vào trở ngại
-- Điều khiển: Giữ nút space để khủng long của thể bay, sử dụng phím mũi tên để di chuyển khủng long sang trái và phải
+- Điều khiển: Nhấn giữ nút space để khủng long của thể bay, sử dụng phím mũi tên trái phải trên bàn phím để di chuyển khủng long sang trái và phải tương ứng
 # Mã nguồn tham khảo 
 - Từ trang lazyfoo và youtuber Lập trình game az
 # Đồ họa đã sử dụng
